@@ -35,7 +35,7 @@ public static class DependencyInjection
         services.AddOpenApiDocument((configure, sp) =>
         {
             configure.Title = "POSAPI API";
-
+            
             // Add JWT
             configure.AddSecurity("JWT", Enumerable.Empty<string>(), new OpenApiSecurityScheme
             {

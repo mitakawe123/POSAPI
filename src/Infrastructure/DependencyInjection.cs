@@ -20,12 +20,12 @@ public static class DependencyInjection
 
         services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
         services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
-
+        
         services.AddDbContext<ApplicationDbContext>((sp, options) =>
         {
             options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
 
-            options.UseSqlServer(connectionString);
+            options.UseNpgsql(connectionString);
         });
 
         services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
@@ -36,7 +36,7 @@ public static class DependencyInjection
             .AddBearerToken(IdentityConstants.BearerScheme);
 
         services.AddAuthorizationBuilder();
-
+        
         services
             .AddIdentityCore<ApplicationUser>()
             .AddRoles<IdentityRole>()

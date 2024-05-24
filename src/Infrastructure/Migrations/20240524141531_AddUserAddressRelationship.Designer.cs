@@ -12,8 +12,8 @@ using POSAPI.Infrastructure.Data;
 namespace POSAPI.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240524083853_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240524141531_AddUserAddressRelationship")]
+    partial class AddUserAddressRelationship
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -157,6 +157,49 @@ namespace POSAPI.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("POSAPI.Domain.Entities.Address", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<string>("AddressLine")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("AddressType")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Addresses");
+                });
+
+            modelBuilder.Entity("POSAPI.Domain.Entities.Phone", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<string>("AddressId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddressId");
+
+                    b.ToTable("Phones");
+                });
+
             modelBuilder.Entity("POSAPI.Domain.Entities.TodoItem", b =>
                 {
                     b.Property<int>("Id")
@@ -234,6 +277,21 @@ namespace POSAPI.Infrastructure.Migrations
                     b.ToTable("TodoLists");
                 });
 
+            modelBuilder.Entity("POSAPI.Domain.Entities.User", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("POSAPI.Infrastructure.Identity.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -282,6 +340,10 @@ namespace POSAPI.Infrastructure.Migrations
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("boolean");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
@@ -294,6 +356,9 @@ namespace POSAPI.Infrastructure.Migrations
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -349,6 +414,28 @@ namespace POSAPI.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("POSAPI.Domain.Entities.Address", b =>
+                {
+                    b.HasOne("POSAPI.Domain.Entities.User", "User")
+                        .WithMany("Addresses")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("POSAPI.Domain.Entities.Phone", b =>
+                {
+                    b.HasOne("POSAPI.Domain.Entities.Address", "Address")
+                        .WithMany("Phones")
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Address");
+                });
+
             modelBuilder.Entity("POSAPI.Domain.Entities.TodoItem", b =>
                 {
                     b.HasOne("POSAPI.Domain.Entities.TodoList", "List")
@@ -383,9 +470,30 @@ namespace POSAPI.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("POSAPI.Infrastructure.Identity.ApplicationUser", b =>
+                {
+                    b.HasOne("POSAPI.Domain.Entities.User", "User")
+                        .WithOne()
+                        .HasForeignKey("POSAPI.Infrastructure.Identity.ApplicationUser", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("POSAPI.Domain.Entities.Address", b =>
+                {
+                    b.Navigation("Phones");
+                });
+
             modelBuilder.Entity("POSAPI.Domain.Entities.TodoList", b =>
                 {
                     b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("POSAPI.Domain.Entities.User", b =>
+                {
+                    b.Navigation("Addresses");
                 });
 #pragma warning restore 612, 618
         }

@@ -10,7 +10,7 @@ public class WeatherForecasts : EndpointGroupBase
             .RequireAuthorization()
             .MapGet(GetWeatherForecasts);
     }
-    // testing pipeline
+    
     public async Task<IEnumerable<WeatherForecast>> GetWeatherForecasts(ISender sender)
     {
         return await sender.Send(new GetWeatherForecastsQuery());

@@ -4,11 +4,11 @@ namespace POSAPI.Domain.Entities;
 public class Phone
 {
     [Key]
-    public string Id { get; set; } = string.Empty;
+    public Guid Id { get; set; }
 
-    [Required]
-    public required string PhoneNumber { get; set; }
+    public string PhoneNumber { get; set; } = string.Empty;
 
-    public string AddressId { get; set; } = string.Empty;
-    public required Address Address { get; set; }
+    public Guid AddressId { get; set; }
+
+    public Address Address { get; set; } = new();
 }

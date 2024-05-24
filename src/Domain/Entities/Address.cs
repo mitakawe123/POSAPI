@@ -4,14 +4,23 @@ namespace POSAPI.Domain.Entities;
 public class Address
 {
     [Key]
-    public string Id { get; set; } = string.Empty;
+    public Guid Id { get; set; }
 
-    public string AddressLine { get; set; } = string.Empty;
+    public string Street { get; set; } = string.Empty;
 
-    public AddressType AddressType { get; set; }
-
-    public string UserId { get; set; } = string.Empty;
-    public User? User { get; set; }
-
+    public string City { get; set; } = string.Empty;
+    
+    public string State { get; set; } = string.Empty;
+    
+    public string ZipCode { get; set; } = string.Empty;
+    
+    public string Country { get; set; } = string.Empty;
+    
+    public AddressType Type { get; set; }
+    
+    public Guid UserId { get; set; }
+    
+    public Person Person { get; set; } = new();
+    
     public ICollection<Phone> Phones { get; set; } = [];
 }

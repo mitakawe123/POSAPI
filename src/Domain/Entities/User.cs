@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace POSAPI.Domain.Entities;
-public class User
+public class Person
 {
-    [Key] 
-    public string UserId { get; set; } = string.Empty;
-    
+    [Key]
+    public Guid Id { get; set; }
+
     [Required]
     [MaxLength(100)]
     public string FullName { get; set; } = string.Empty;

@@ -14,7 +14,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 
     public DbSet<TodoItem> TodoItems => Set<TodoItem>();
 
-    public new DbSet<User> Users => Set<User>();
+    public DbSet<Person> People => Set<Person>();
 
     public DbSet<Address> Addresses => Set<Address>();
 
@@ -25,19 +25,14 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         base.OnModelCreating(builder);
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-        builder.Entity<ApplicationUser>()
-            .HasOne(au => au.User)
-            .WithOne()
-            .HasForeignKey<ApplicationUser>(au => au.UserId);
-
-        builder.Entity<User>()
-            .HasMany(u => u.Addresses)
-            .WithOne(a => a.User)
+        builder.Entity<Person>()
+            .HasMany(p => p.Addresses)
+            .WithOne(a => a.Person)
             .HasForeignKey(a => a.UserId);
 
         builder.Entity<Address>()
             .HasMany(a => a.Phones)
-            .WithOne(p => p.Address)
-            .HasForeignKey(p => p.AddressId);
+            .WithOne(t => t.Address)
+            .HasForeignKey(t => t.AddressId);
     }
 }

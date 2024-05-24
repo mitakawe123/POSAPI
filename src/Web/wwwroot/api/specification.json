@@ -6,6 +6,34 @@
     "version": "1.0.0"
   },
   "paths": {
+    "/api/Person": {
+      "get": {
+        "tags": [
+          "Person"
+        ],
+        "operationId": "GetPeople",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Person"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/api/TodoItems": {
       "get": {
         "tags": [
@@ -757,6 +785,103 @@
   },
   "components": {
     "schemas": {
+      "Person": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "fullName"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "guid"
+          },
+          "fullName": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1
+          },
+          "addresses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Address"
+            }
+          }
+        }
+      },
+      "Address": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "guid"
+          },
+          "street": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "zipCode": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "type": {
+            "$ref": "#/components/schemas/AddressType"
+          },
+          "userId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "person": {
+            "$ref": "#/components/schemas/Person"
+          },
+          "phones": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Phone"
+            }
+          }
+        }
+      },
+      "AddressType": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "Home",
+          "Office"
+        ],
+        "enum": [
+          0,
+          1
+        ]
+      },
+      "Phone": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "guid"
+          },
+          "phoneNumber": {
+            "type": "string"
+          },
+          "addressId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "address": {
+            "$ref": "#/components/schemas/Address"
+          }
+        }
+      },
       "PaginatedListOfTodoItemBriefDto": {
         "type": "object",
         "additionalProperties": false,

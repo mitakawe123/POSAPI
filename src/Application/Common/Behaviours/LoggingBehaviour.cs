@@ -1,34 +1,21 @@
-﻿using POSAPI.Application.Common.Interfaces;
-using MediatR.Pipeline;
-using Microsoft.Extensions.Logging;
+﻿using Serilog;
 
 namespace POSAPI.Application.Common.Behaviours;
 
-public class LoggingBehaviour<TRequest> : IRequestPreProcessor<TRequest> where TRequest : notnull
+public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+    where TRequest : notnull
+    where TResponse : notnull
 {
-    private readonly ILogger _logger;
-    private readonly IUser _user;
-    private readonly IIdentityService _identityService;
-
-    public LoggingBehaviour(ILogger<TRequest> logger, IUser user, IIdentityService identityService)
+    public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
-        _logger = logger;
-        _user = user;
-        _identityService = identityService;
-    }
+        // Log the request
+        Log.Information("Handling {RequestName} with request: {@Request}", typeof(TRequest).Name, request);
 
-    public async Task Process(TRequest request, CancellationToken cancellationToken)
-    {
-        var requestName = typeof(TRequest).Name;
-        var userId = _user.Id ?? string.Empty;
-        string? userName = string.Empty;
+        var response = await next();
 
-        if (!string.IsNullOrEmpty(userId))
-        {
-            userName = await _identityService.GetUserNameAsync(userId);
-        }
+        // Log the response
+        Log.Information("Handled {RequestName} with response: {@Response}", typeof(TRequest).Name, response);
 
-        _logger.LogInformation("POSAPI Request: {Name} {@UserId} {@UserName} {@Request}",
-            requestName, userId, userName, request);
+        return response;
     }
 }

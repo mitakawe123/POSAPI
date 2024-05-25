@@ -21,7 +21,7 @@ public class RequestLoggerTests
         _identityService = new Mock<IIdentityService>();
     }
 
-    [Test]
+/*    [Test]
     public async Task ShouldCallGetUserNameAsyncOnceIfAuthenticated()
     {
         _user.Setup(x => x.Id).Returns(Guid.NewGuid().ToString());
@@ -41,5 +41,5 @@ public class RequestLoggerTests
         await requestLogger.Process(new CreateTodoItemCommand { ListId = 1, Title = "title" }, new CancellationToken());
 
         _identityService.Verify(i => i.GetUserNameAsync(It.IsAny<string>()), Times.Never);
-    }
+    }*/
 }

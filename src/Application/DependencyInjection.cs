@@ -1,7 +1,8 @@
 ﻿using System.Reflection;
+using Microsoft.Extensions.DependencyInjection;
 using POSAPI.Application.Common.Behaviours;
 
-namespace Microsoft.Extensions.DependencyInjection;
+namespace POSAPI.Application;
 
 public static class DependencyInjection
 {
@@ -17,6 +18,7 @@ public static class DependencyInjection
             cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(AuthorizationBehaviour<,>));
             cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
             cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(PerformanceBehaviour<,>));
+            cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
         });
 
         return services;

@@ -1,14 +1,15 @@
-﻿using POSAPI.Application.Common.Interfaces;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using POSAPI.Application.Common.Interfaces;
 using POSAPI.Domain.Constants;
 using POSAPI.Infrastructure.Data;
 using POSAPI.Infrastructure.Data.Interceptors;
 using POSAPI.Infrastructure.Identity;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
-using Microsoft.Extensions.Configuration;
 
-namespace Microsoft.Extensions.DependencyInjection;
+namespace POSAPI.Infrastructure;
 
 public static class DependencyInjection
 {

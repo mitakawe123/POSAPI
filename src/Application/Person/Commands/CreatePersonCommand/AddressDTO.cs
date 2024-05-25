@@ -1,4 +1,5 @@
-﻿using POSAPI.Domain.Enums;
+﻿using POSAPI.Domain.Entities;
+using POSAPI.Domain.Enums;
 
 namespace POSAPI.Application.Person.Commands.CreatePersonCommand;
 public record AddressDTO
@@ -16,4 +17,12 @@ public record AddressDTO
     public AddressType Type { get; set; }
 
     public ICollection<PhoneDTO> Phones { get; set; } = [];
+
+    private class Mapping : Profile
+    {
+        public Mapping()
+        {
+            CreateMap<Address, AddressDTO>();
+        }
+    }
 }

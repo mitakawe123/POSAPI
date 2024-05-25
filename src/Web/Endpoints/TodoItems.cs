@@ -30,21 +30,21 @@ public class TodoItems : EndpointGroupBase
         return sender.Send(command);
     }
 
-    public async Task<IResult> UpdateTodoItem(ISender sender, int id, UpdateTodoItemCommand command)
+    public async Task<IResult> UpdateTodoItem(ISender sender, Guid id, UpdateTodoItemCommand command)
     {
         if (id != command.Id) return Results.BadRequest();
         await sender.Send(command);
         return Results.NoContent();
     }
 
-    public async Task<IResult> UpdateTodoItemDetail(ISender sender, int id, UpdateTodoItemDetailCommand command)
+    public async Task<IResult> UpdateTodoItemDetail(ISender sender, Guid id, UpdateTodoItemDetailCommand command)
     {
         if (id != command.Id) return Results.BadRequest();
         await sender.Send(command);
         return Results.NoContent();
     }
 
-    public async Task<IResult> DeleteTodoItem(ISender sender, int id)
+    public async Task<IResult> DeleteTodoItem(ISender sender, Guid id)
     {
         await sender.Send(new DeleteTodoItemCommand(id));
         return Results.NoContent();

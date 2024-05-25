@@ -1,5 +1,4 @@
 ﻿using POSAPI.Application.TodoItems.Commands.CreateTodoItem;
-using POSAPI.Application.TodoItems.Commands.UpdateTodoItem;
 using POSAPI.Application.TodoItems.Commands.UpdateTodoItemDetail;
 using POSAPI.Application.TodoLists.Commands.CreateTodoList;
 using POSAPI.Domain.Entities;

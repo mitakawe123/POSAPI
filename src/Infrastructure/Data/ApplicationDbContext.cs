@@ -1,10 +1,13 @@
-﻿using System.Reflection;
-using POSAPI.Application.Common.Interfaces;
-using POSAPI.Domain.Entities;
-using POSAPI.Infrastructure.Identity;
+﻿using System.Linq.Expressions;
+using System.Reflection;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using POSAPI.Application.Person.Queries;
+using Microsoft.EntityFrameworkCore.Query;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
+using POSAPI.Application.Common.Interfaces;
+using POSAPI.Application.People.Queries;
+using POSAPI.Domain.Entities;
+using POSAPI.Infrastructure.Identity;
 
 namespace POSAPI.Infrastructure.Data;
 

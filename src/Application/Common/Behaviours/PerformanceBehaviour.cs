@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
-using POSAPI.Application.Common.Interfaces;
 using Microsoft.Extensions.Logging;
+using POSAPI.Application.Common.Interfaces;
 
 namespace POSAPI.Application.Common.Behaviours;
 

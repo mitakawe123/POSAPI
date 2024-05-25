@@ -1,4 +1,4 @@
-﻿namespace POSAPI.Application.Person.Commands.UpdatePersonCommand;
+﻿namespace POSAPI.Application.People.Commands.UpdatePersonCommand;
 public class UpdatePersonCommandValidator : AbstractValidator<UpdatePersonCommand>
 {
     public UpdatePersonCommandValidator()

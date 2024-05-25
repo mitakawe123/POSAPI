@@ -1,5 +1,5 @@
-﻿using POSAPI.Application.Common.Models;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
+using POSAPI.Application.Common.Models;
 
 namespace POSAPI.Infrastructure.Identity;
 

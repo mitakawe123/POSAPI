@@ -1,12 +1,12 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using AutoMapper;
+using NUnit.Framework;
 using POSAPI.Application.Common.Interfaces;
 using POSAPI.Application.Common.Models;
 using POSAPI.Application.TodoItems.Queries.GetTodoItemsWithPagination;
 using POSAPI.Application.TodoLists.Queries.GetTodos;
 using POSAPI.Domain.Entities;
-using NUnit.Framework;
 
 namespace POSAPI.Application.UnitTests.Common.Mappings;
 

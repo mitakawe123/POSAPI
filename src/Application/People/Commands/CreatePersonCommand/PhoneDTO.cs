@@ -1,6 +1,6 @@
 ﻿using POSAPI.Domain.Entities;
 
-namespace POSAPI.Application.Person.Commands.CreatePersonCommand;
+namespace POSAPI.Application.People.Commands.CreatePersonCommand;
 public record PhoneDTO
 {
     public string PhoneNumber { get; set; } = string.Empty;

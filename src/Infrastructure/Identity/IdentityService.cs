@@ -1,7 +1,7 @@
-using POSAPI.Application.Common.Interfaces;
-using POSAPI.Application.Common.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using POSAPI.Application.Common.Interfaces;
+using POSAPI.Application.Common.Models;
 
 namespace POSAPI.Infrastructure.Identity;
 

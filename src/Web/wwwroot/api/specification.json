@@ -6,10 +6,10 @@
     "version": "1.0.0"
   },
   "paths": {
-    "/api/Person/{id}": {
+    "/api/People/{id}": {
       "get": {
         "tags": [
-          "Person"
+          "People"
         ],
         "operationId": "GetPerson",
         "parameters": [
@@ -39,7 +39,7 @@
       },
       "delete": {
         "tags": [
-          "Person"
+          "People"
         ],
         "operationId": "DeletePerson",
         "parameters": [
@@ -62,9 +62,9 @@
       },
       "patch": {
         "tags": [
-          "Person"
+          "People"
         ],
-        "operationId": "PatchApiPerson",
+        "operationId": "PatchApiPeople",
         "parameters": [
           {
             "name": "id",
@@ -96,10 +96,10 @@
         }
       }
     },
-    "/api/Person": {
+    "/api/People": {
       "post": {
         "tags": [
-          "Person"
+          "People"
         ],
         "operationId": "CreatePerson",
         "requestBody": {

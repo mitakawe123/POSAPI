@@ -1,7 +1,7 @@
-﻿using POSAPI.Domain.Common;
-using MediatR;
+﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using POSAPI.Domain.Common;
 
 namespace POSAPI.Infrastructure.Data.Interceptors;
 

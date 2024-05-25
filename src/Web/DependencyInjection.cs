@@ -1,11 +1,10 @@
 ﻿using Azure.Identity;
+using Microsoft.AspNetCore.Mvc;
+using NSwag;
+using NSwag.Generation.Processors.Security;
 using POSAPI.Application.Common.Interfaces;
 using POSAPI.Infrastructure.Data;
 using POSAPI.Web.Services;
-using Microsoft.AspNetCore.Mvc;
-
-using NSwag;
-using NSwag.Generation.Processors.Security;
 
 namespace Microsoft.Extensions.DependencyInjection;
 

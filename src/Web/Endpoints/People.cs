@@ -1,16 +1,16 @@
-﻿using POSAPI.Application.Person.Commands.CreatePersonCommand;
-using POSAPI.Application.Person.Commands.DeletePersonCommand;
-using POSAPI.Application.Person.Commands.UpdatePersonCommand;
-using POSAPI.Application.Person.Queries;
+﻿using POSAPI.Application.People.Commands.CreatePersonCommand;
+using POSAPI.Application.People.Commands.DeletePersonCommand;
+using POSAPI.Application.People.Commands.UpdatePersonCommand;
+using POSAPI.Application.People.Queries;
 
 namespace POSAPI.Web.Endpoints;
 
-public class Person : EndpointGroupBase
+public class People : EndpointGroupBase
 {
     public override void Map(WebApplication app)
     {
         app.MapGroup(this)
-            .RequireAuthorization()
+            //.RequireAuthorization()
             .MapGet(GetPerson,"{id}")
             .MapPost(CreatePerson)
             .MapDelete(DeletePerson, "{id}")
@@ -19,7 +19,7 @@ public class Person : EndpointGroupBase
     
     private Task<string> GetPerson(ISender sender, Guid id)
     {
-        return sender.Send(new GetPeopleQuery(id));
+        return sender.Send(new GetPersonQuery(id));
     }
 
     private Task<Guid> CreatePerson(ISender sender, CreatePersonCommand command)

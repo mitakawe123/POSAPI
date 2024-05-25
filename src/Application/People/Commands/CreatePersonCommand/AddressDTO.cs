@@ -1,7 +1,7 @@
 ﻿using POSAPI.Domain.Entities;
 using POSAPI.Domain.Enums;
 
-namespace POSAPI.Application.Person.Commands.CreatePersonCommand;
+namespace POSAPI.Application.People.Commands.CreatePersonCommand;
 public record AddressDTO
 {
     public string Street { get; set; } = string.Empty;

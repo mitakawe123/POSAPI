@@ -1,7 +1,7 @@
-﻿using POSAPI.Domain.Exceptions;
-using POSAPI.Domain.ValueObjects;
-using FluentAssertions;
+﻿using FluentAssertions;
 using NUnit.Framework;
+using POSAPI.Domain.Exceptions;
+using POSAPI.Domain.ValueObjects;
 
 namespace POSAPI.Domain.UnitTests.ValueObjects;
 

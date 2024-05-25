@@ -1,7 +1,7 @@
 ﻿using POSAPI.Application.Common.Interfaces;
 using POSAPI.Domain.Events.PeopleEvents;
 
-namespace POSAPI.Application.Person.Commands.DeletePersonCommand;
+namespace POSAPI.Application.People.Commands.DeletePersonCommand;
 
 public record DeletePersonCommand(Guid Id) : IRequest;
 

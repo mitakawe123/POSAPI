@@ -1,7 +1,7 @@
 ﻿using POSAPI.Application.Common.Interfaces;
 using POSAPI.Domain.Entities;
 
-namespace POSAPI.Application.Person.Commands.UpdatePersonCommand;
+namespace POSAPI.Application.People.Commands.UpdatePersonCommand;
 public record UpdatePersonCommand : IRequest
 {
     public Guid Id { get; set; }
@@ -22,7 +22,7 @@ public class UpdatePersonCommandHandler(IApplicationDbContext context) :
             .FirstOrDefaultAsync(p => p.Id == request.Id, cancellationToken);
         
         Guard.Against.NotFound(request.Id, entity);
-
+        
         entity.FullName = request.FullName;
 
         if (request.Addresses is not null && request.Addresses.Count is not 0)

@@ -1,4 +1,4 @@
-﻿namespace POSAPI.Application.Person.Commands.CreatePersonCommand;
+﻿namespace POSAPI.Application.People.Commands.CreatePersonCommand;
 public class CreatePersonValidator : AbstractValidator<CreatePersonCommand>
 {
     public CreatePersonValidator()

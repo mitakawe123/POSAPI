@@ -1,9 +1,10 @@
 ﻿using System.Data.Common;
-using POSAPI.Infrastructure.Data;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using POSAPI.Infrastructure.Data;
 using Respawn;
+using Respawn.Graph;
 
 namespace POSAPI.Application.FunctionalTests;
 
@@ -41,7 +42,7 @@ public class SqlServerTestDatabase : ITestDatabase
 
         _respawner = await Respawner.CreateAsync(_connectionString, new RespawnerOptions
         {
-            TablesToIgnore = new Respawn.Graph.Table[] { "__EFMigrationsHistory" }
+            TablesToIgnore = new Table[] { "__EFMigrationsHistory" }
         });
     }
 

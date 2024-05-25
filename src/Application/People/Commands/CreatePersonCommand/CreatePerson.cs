@@ -2,7 +2,7 @@
 using POSAPI.Domain.Entities;
 using POSAPI.Domain.Events.PeopleEvents;
 
-namespace POSAPI.Application.Person.Commands.CreatePersonCommand;
+namespace POSAPI.Application.People.Commands.CreatePersonCommand;
 
 public record CreatePersonCommand : IRequest<Guid>
 {
@@ -16,7 +16,7 @@ public class CreatePersonCommandHandler(IApplicationDbContext context) :
 {
     public async Task<Guid> Handle(CreatePersonCommand request, CancellationToken cancellationToken)
     {
-        var person = new Domain.Entities.Person
+        var person = new Person
         {
             Id = Guid.NewGuid(),
             FullName = request.FullName,

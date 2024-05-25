@@ -8,7 +8,7 @@ public interface IApplicationDbContext
     DbSet<TodoItem> TodoItems { get; }
     DbSet<Address> Addresses { get; }
     DbSet<Phone> Phones { get; }
-    DbSet<Domain.Entities.Person> People { get; }
+    DbSet<Person> People { get; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     Task<List<TEntity>> FromSqlRaw<TEntity>(string sql, params object[] parameters) where TEntity : class;
     Task<List<TEntity>> FromSqlInterpolated<TEntity>(FormattableString sql) where TEntity : class;

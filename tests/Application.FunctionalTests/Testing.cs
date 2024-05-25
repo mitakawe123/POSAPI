@@ -1,15 +1,15 @@
-﻿using POSAPI.Domain.Constants;
-using POSAPI.Infrastructure.Data;
-using POSAPI.Infrastructure.Identity;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using POSAPI.Domain.Constants;
+using POSAPI.Infrastructure.Data;
+using POSAPI.Infrastructure.Identity;
 
 namespace POSAPI.Application.FunctionalTests;
 
 [SetUpFixture]
-public partial class Testing
+public class Testing
 {
     private static ITestDatabase _database;
     private static CustomWebApplicationFactory _factory = null!;

@@ -1,9 +1,8 @@
-﻿using POSAPI.Application.Common.Behaviours;
-using POSAPI.Application.Common.Interfaces;
-using POSAPI.Application.TodoItems.Commands.CreateTodoItem;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
+using POSAPI.Application.Common.Interfaces;
+using POSAPI.Application.TodoItems.Commands.CreateTodoItem;
 
 namespace POSAPI.Application.UnitTests.Common.Behaviours;
 

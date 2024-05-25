@@ -1,12 +1,12 @@
 ﻿using POSAPI.Domain.Enums;
 
-namespace POSAPI.Application.Person.Queries;
+namespace POSAPI.Application.People.Queries;
 public record PersonSqlResult
 {
     public Guid PersonId { get; set; }
 
     public string FullName { get; set; } = string.Empty;
-
+    
     public Guid AddressId { get; set; }
 
     public string Street { get; set; } = string.Empty;

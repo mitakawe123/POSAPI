@@ -1,4 +1,6 @@
-﻿namespace POSAPI.Application.Person.Commands.CreatePersonCommand;
+﻿using POSAPI.Domain.Entities;
+
+namespace POSAPI.Application.People.Commands.CreatePersonCommand;
 public record PersonDTO
 {
     public string FullName { get; set; } = string.Empty;
@@ -9,7 +11,7 @@ public record PersonDTO
     {
         public Mapping()
         {
-            CreateMap<Domain.Entities.Person, PersonDTO>();
+            CreateMap<Person, PersonDTO>();
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using POSAPI.Domain.Events.PeopleEvents;
 
-namespace POSAPI.Application.Person.EventHandlers;
+namespace POSAPI.Application.People.EventHandlers;
 public class PersonCreatedEventHandler(ILogger<PersonCreatedEventHandler> logger) : 
     INotificationHandler<PersonCreatedEvent>
 {

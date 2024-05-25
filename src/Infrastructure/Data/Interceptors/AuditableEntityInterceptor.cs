@@ -1,8 +1,8 @@
-﻿using POSAPI.Application.Common.Interfaces;
-using POSAPI.Domain.Common;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using POSAPI.Application.Common.Interfaces;
+using POSAPI.Domain.Common;
 
 namespace POSAPI.Infrastructure.Data.Interceptors;
 

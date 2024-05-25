@@ -1,6 +1,6 @@
-﻿using POSAPI.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using POSAPI.Domain.Entities;
 
 namespace POSAPI.Infrastructure.Data.Configurations;
 

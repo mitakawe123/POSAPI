@@ -3,15 +3,15 @@ using POSAPI.Domain.Entities;
 
 namespace POSAPI.Application.TodoLists.Commands.CreateTodoList;
 
-public record CreateTodoListCommand : IRequest<int>
+public record CreateTodoListCommand : IRequest<Guid>
 {
     public string? Title { get; init; }
 }
 
 public class CreateTodoListCommandHandler(IApplicationDbContext context) : 
-    IRequestHandler<CreateTodoListCommand, int>
+    IRequestHandler<CreateTodoListCommand, Guid>
 {
-    public async Task<int> Handle(CreateTodoListCommand request, CancellationToken cancellationToken)
+    public async Task<Guid> Handle(CreateTodoListCommand request, CancellationToken cancellationToken)
     {
         var entity = new TodoList { Title = request.Title };
 

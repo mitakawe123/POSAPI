@@ -12,7 +12,7 @@ using POSAPI.Infrastructure.Data;
 namespace POSAPI.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240524182427_Init")]
+    [Migration("20240525065011_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -202,10 +202,22 @@ namespace POSAPI.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
+
+                    b.Property<DateTimeOffset>("LastModified")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -234,11 +246,9 @@ namespace POSAPI.Infrastructure.Migrations
 
             modelBuilder.Entity("POSAPI.Domain.Entities.TodoItem", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<DateTimeOffset>("Created")
                         .HasColumnType("timestamp with time zone");
@@ -258,6 +268,9 @@ namespace POSAPI.Infrastructure.Migrations
                     b.Property<int>("ListId")
                         .HasColumnType("integer");
 
+                    b.Property<Guid>("ListId1")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("Note")
                         .HasColumnType("text");
 
@@ -274,18 +287,16 @@ namespace POSAPI.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ListId");
+                    b.HasIndex("ListId1");
 
                     b.ToTable("TodoItems");
                 });
 
             modelBuilder.Entity("POSAPI.Domain.Entities.TodoList", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<DateTimeOffset>("Created")
                         .HasColumnType("timestamp with time zone");
@@ -450,7 +461,7 @@ namespace POSAPI.Infrastructure.Migrations
                 {
                     b.HasOne("POSAPI.Domain.Entities.TodoList", "List")
                         .WithMany("Items")
-                        .HasForeignKey("ListId")
+                        .HasForeignKey("ListId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -461,8 +472,8 @@ namespace POSAPI.Infrastructure.Migrations
                 {
                     b.OwnsOne("POSAPI.Domain.ValueObjects.Colour", "Colour", b1 =>
                         {
-                            b1.Property<int>("TodoListId")
-                                .HasColumnType("integer");
+                            b1.Property<Guid>("TodoListId")
+                                .HasColumnType("uuid");
 
                             b1.Property<string>("Code")
                                 .IsRequired()

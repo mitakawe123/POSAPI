@@ -1,20 +1,14 @@
-﻿using POSAPI.Domain.Events;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
+using POSAPI.Domain.Events.TodoItemEvents;
 
 namespace POSAPI.Application.TodoItems.EventHandlers;
 
-public class TodoItemCompletedEventHandler : INotificationHandler<TodoItemCompletedEvent>
+public class TodoItemCompletedEventHandler(ILogger<TodoItemCompletedEventHandler> logger)
+    : INotificationHandler<TodoItemCompletedEvent>
 {
-    private readonly ILogger<TodoItemCompletedEventHandler> _logger;
-
-    public TodoItemCompletedEventHandler(ILogger<TodoItemCompletedEventHandler> logger)
-    {
-        _logger = logger;
-    }
-
     public Task Handle(TodoItemCompletedEvent notification, CancellationToken cancellationToken)
     {
-        _logger.LogInformation("POSAPI Domain Event: {DomainEvent}", notification.GetType().Name);
+        logger.LogInformation("POSAPI Domain Event: {DomainEvent}", notification.GetType().Name);
 
         return Task.CompletedTask;
     }

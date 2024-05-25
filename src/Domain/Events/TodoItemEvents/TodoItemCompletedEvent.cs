@@ -1,4 +1,4 @@
-﻿namespace POSAPI.Domain.Events;
+﻿namespace POSAPI.Domain.Events.TodoItemEvents;
 
 public class TodoItemCompletedEvent : BaseEvent
 {

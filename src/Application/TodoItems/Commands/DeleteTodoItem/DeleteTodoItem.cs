@@ -1,31 +1,24 @@
 ﻿using POSAPI.Application.Common.Interfaces;
-using POSAPI.Domain.Events;
+using POSAPI.Domain.Events.TodoItemEvents;
 
 namespace POSAPI.Application.TodoItems.Commands.DeleteTodoItem;
 
 public record DeleteTodoItemCommand(int Id) : IRequest;
 
-public class DeleteTodoItemCommandHandler : IRequestHandler<DeleteTodoItemCommand>
+public class DeleteTodoItemCommandHandler(IApplicationDbContext context) : 
+    IRequestHandler<DeleteTodoItemCommand>
 {
-    private readonly IApplicationDbContext _context;
-
-    public DeleteTodoItemCommandHandler(IApplicationDbContext context)
-    {
-        _context = context;
-    }
-
     public async Task Handle(DeleteTodoItemCommand request, CancellationToken cancellationToken)
     {
-        var entity = await _context.TodoItems
-            .FindAsync(new object[] { request.Id }, cancellationToken);
+        var entity = await context.TodoItems
+            .FindAsync([request.Id], cancellationToken);
 
         Guard.Against.NotFound(request.Id, entity);
 
-        _context.TodoItems.Remove(entity);
+        context.TodoItems.Remove(entity);
 
         entity.AddDomainEvent(new TodoItemDeletedEvent(entity));
 
-        await _context.SaveChangesAsync(cancellationToken);
+        await context.SaveChangesAsync(cancellationToken);
     }
-
 }

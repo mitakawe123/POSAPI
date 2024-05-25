@@ -1,10 +1,10 @@
 ﻿using POSAPI.Application.Common.Interfaces;
 using POSAPI.Domain.Entities;
-using POSAPI.Domain.Events;
+using POSAPI.Domain.Events.TodoItemEvents;
 
 namespace POSAPI.Application.TodoItems.Commands.CreateTodoItem;
 
-public record CreateTodoItemCommand : IRequest<int>
+public record CreateTodoItemCommand : IRequest<Guid>
 {
     public int ListId { get; init; }
 
@@ -12,9 +12,9 @@ public record CreateTodoItemCommand : IRequest<int>
 }
 
 public class CreateTodoItemCommandHandler(IApplicationDbContext context) : 
-    IRequestHandler<CreateTodoItemCommand, int>
+    IRequestHandler<CreateTodoItemCommand, Guid>
 {
-    public async Task<int> Handle(CreateTodoItemCommand request, CancellationToken cancellationToken)
+    public async Task<Guid> Handle(CreateTodoItemCommand request, CancellationToken cancellationToken)
     {
         var entity = new TodoItem
         {

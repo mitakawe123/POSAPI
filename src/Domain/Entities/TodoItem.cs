@@ -1,4 +1,6 @@
-﻿namespace POSAPI.Domain.Entities;
+﻿using POSAPI.Domain.Events.TodoItemEvents;
+
+namespace POSAPI.Domain.Entities;
 
 public class TodoItem : BaseAuditableEntity
 {

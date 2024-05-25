@@ -1,11 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace POSAPI.Domain.Entities;
-public class Person
+public class Person : BaseAuditableEntity
 {
-    [Key]
-    public Guid Id { get; set; }
-
     [Required]
     [MaxLength(100)]
     public string FullName { get; set; } = string.Empty;

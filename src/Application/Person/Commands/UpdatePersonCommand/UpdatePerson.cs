@@ -16,7 +16,6 @@ public class UpdatePersonCommandHandler(IApplicationDbContext context) :
 {
     public async Task Handle(UpdatePersonCommand request, CancellationToken cancellationToken)
     {
-        //here I have an error I don't check the nested addresses and phones id's 
         var entity = await context.People
             .Include(p => p.Addresses)
             .ThenInclude(a => a.Phones)

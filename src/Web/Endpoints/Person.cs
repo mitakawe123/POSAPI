@@ -11,15 +11,15 @@ public class Person : EndpointGroupBase
     {
         app.MapGroup(this)
             //.RequireAuthorization()
-            .MapGet(GetPeople)
+            .MapGet(GetPerson,"{id}")
             .MapPost(CreatePerson)
             .MapDelete(DeletePerson, "{id}")
             .MapPatch("{id}", UpdatePerson);
     }
 
-    public Task<IEnumerable<Domain.Entities.Person>> GetPeople(ISender sender)
+    public Task<PersonDTO> GetPerson(ISender sender, Guid id)
     {
-        return sender.Send(new GetPeopleQuery());
+        return sender.Send(new GetPeopleQuery(id));
     }
 
     public Task<Guid> CreatePerson(ISender sender, CreatePersonCommand command)

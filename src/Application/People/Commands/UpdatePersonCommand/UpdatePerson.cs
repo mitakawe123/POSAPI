@@ -16,6 +16,7 @@ public class UpdatePersonCommandHandler(IApplicationDbContext context) :
 {
     public async Task Handle(UpdatePersonCommand request, CancellationToken cancellationToken)
     {
+        // use OnDelete on the OnModelCreating and use ExecuteDelete
         var entity = await context.People
             .Include(p => p.Addresses)
             .ThenInclude(a => a.Phones)

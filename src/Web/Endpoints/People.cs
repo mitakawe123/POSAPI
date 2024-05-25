@@ -10,7 +10,7 @@ public class People : EndpointGroupBase
     public override void Map(WebApplication app)
     {
         app.MapGroup(this)
-            //.RequireAuthorization()
+            .RequireAuthorization()
             .MapGet(GetPerson,"{id}")
             .MapPost(CreatePerson)
             .MapDelete(DeletePerson, "{id}")

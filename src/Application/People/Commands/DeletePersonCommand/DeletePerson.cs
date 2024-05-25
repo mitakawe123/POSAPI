@@ -14,7 +14,7 @@ public class DeletePersonCommandHandler(IApplicationDbContext context) :
             .Include(p => p.Addresses)
             .ThenInclude(a => a.Phones)
             .FirstOrDefaultAsync(p => p.Id == request.Id, cancellationToken);
-
+        
         Guard.Against.NotFound(request.Id, entity);
 
         context.People.Remove(entity);

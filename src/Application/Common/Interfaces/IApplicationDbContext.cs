@@ -10,4 +10,6 @@ public interface IApplicationDbContext
     DbSet<Phone> Phones { get; }
     DbSet<Domain.Entities.Person> People { get; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+    Task<List<TEntity>> FromSqlRaw<TEntity>(string sql, params object[] parameters) where TEntity : class;
+    Task<List<TEntity>> FromSqlInterpolated<TEntity>(FormattableString sql) where TEntity : class;
 }

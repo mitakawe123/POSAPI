@@ -20,7 +20,7 @@ public class UpdatePersonCommandHandler(IApplicationDbContext context) :
             .Include(p => p.Addresses)
             .ThenInclude(a => a.Phones)
             .FirstOrDefaultAsync(p => p.Id == request.Id, cancellationToken);
-
+        
         Guard.Against.NotFound(request.Id, entity);
 
         entity.FullName = request.FullName;

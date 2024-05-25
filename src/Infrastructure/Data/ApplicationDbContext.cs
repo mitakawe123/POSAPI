@@ -4,6 +4,7 @@ using POSAPI.Domain.Entities;
 using POSAPI.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using POSAPI.Application.Person.Queries;
 
 namespace POSAPI.Infrastructure.Data;
 
@@ -25,6 +26,8 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         base.OnModelCreating(builder);
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
+        builder.Entity<PersonSqlResult>().HasNoKey();
+        
         builder.Entity<Person>()
             .HasMany(p => p.Addresses)
             .WithOne(a => a.Person)
@@ -34,5 +37,16 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             .HasMany(a => a.Phones)
             .WithOne(t => t.Address)
             .HasForeignKey(t => t.AddressId);
+    }
+
+    public async Task<List<TEntity>> FromSqlRaw<TEntity>(string sql, params object[] parameters) where TEntity : class
+    {
+        return await Set<TEntity>().FromSqlRaw(sql, parameters).ToListAsync();
+    }
+
+    //The FromSqlInterpolated method ensures that the interpolated variables are parameterized, mitigating the risk of SQL injection
+    public async Task<List<TEntity>> FromSqlInterpolated<TEntity>(FormattableString sql) where TEntity : class
+    {
+        return await Set<TEntity>().FromSqlInterpolated(sql).ToListAsync();
     }
 }

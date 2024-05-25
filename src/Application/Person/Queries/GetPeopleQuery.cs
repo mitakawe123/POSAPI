@@ -41,7 +41,7 @@ public class GetUsersQueryHandler(IApplicationDbContext context) :
                                               where pe."Id" = {request.Id}
                                   """;
 
-        var personDetails = await context.FromSqlInterpolated<PersonSqlResult>(sql).ConfigureAwait(false);
+        var personDetails = await context.SqlQuery<PersonSqlResult>(sql).ToListAsync(cancellationToken);
 
         var personDict = personDetails
             .GroupBy(x => x.PersonId)

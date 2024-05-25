@@ -27,7 +27,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
         builder.Entity<PersonSqlResult>().HasNoKey();
-        
+
         builder.Entity<Person>()
             .HasMany(p => p.Addresses)
             .WithOne(a => a.Person)
@@ -48,5 +48,10 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public async Task<List<TEntity>> FromSqlInterpolated<TEntity>(FormattableString sql) where TEntity : class
     {
         return await Set<TEntity>().FromSqlInterpolated(sql).ToListAsync();
+    }
+
+    public IQueryable<TEntity> SqlQuery<TEntity>(FormattableString sql) where TEntity : class
+    {
+        return Database.SqlQuery<TEntity>(sql);
     }
 }

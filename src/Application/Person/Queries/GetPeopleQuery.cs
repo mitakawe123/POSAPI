@@ -1,18 +1,19 @@
-﻿using POSAPI.Application.Common.Interfaces;
-using POSAPI.Application.Person.Commands.CreatePersonCommand;
+﻿using System.Text;
+using POSAPI.Application.Common.Interfaces;
 using POSAPI.Domain.Entities;
+using POSAPI.Domain.Enums;
 
 namespace POSAPI.Application.Person.Queries;
 
-public record GetPeopleQuery(Guid Id) : IRequest<PersonDTO>
+public record GetPeopleQuery(Guid Id) : IRequest<string>
 {
     public Guid Id { get; } = Id;
 }
 
-public class GetUsersQueryHandler(IApplicationDbContext context, IMapper mapper) :
-    IRequestHandler<GetPeopleQuery, PersonDTO>
+public class GetUsersQueryHandler(IApplicationDbContext context) :
+    IRequestHandler<GetPeopleQuery, string>
 {
-    public async Task<PersonDTO> Handle(GetPeopleQuery request, CancellationToken cancellationToken)
+    public async Task<string> Handle(GetPeopleQuery request, CancellationToken cancellationToken)
     {
         // This is the LINQ version of the below code
         /*var entity = await context.People
@@ -70,8 +71,36 @@ public class GetUsersQueryHandler(IApplicationDbContext context, IMapper mapper)
 
         Guard.Against.NotFound(request.Id, entity);
 
-        var personDto = mapper.Map<PersonDTO>(entity);
+        var formattedOutput = FormatPersonData(entity);
 
-        return personDto;
+        return formattedOutput;
+    }
+
+    private static string FormatPersonData(Domain.Entities.Person person)
+    {
+        var sb = new StringBuilder();
+        sb.AppendLine("--------------------");
+        sb.AppendLine($"Name: {person.FullName}");
+
+        foreach (var address in person.Addresses)
+        {
+            if (address.Type == AddressType.Office)
+            {
+                sb.AppendLine($"Office Address: {address.Street}");
+            }
+            else
+            {
+                sb.AppendLine($"Home Address: {address.Street}");
+            }
+
+            foreach (var phone in address.Phones)
+            {
+                sb.AppendLine($"Tel: {phone.PhoneNumber}");
+            }
+        }
+
+        sb.AppendLine("--------------------");
+
+        return sb.ToString();
     }
 }

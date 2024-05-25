@@ -30,7 +30,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PersonDTO"
+                  "type": "string"
                 }
               }
             }
@@ -880,7 +880,7 @@
   },
   "components": {
     "schemas": {
-      "PersonDTO": {
+      "CreatePersonCommand": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
@@ -919,6 +919,7 @@
           },
           "phones": {
             "type": "array",
+            "nullable": true,
             "items": {
               "$ref": "#/components/schemas/PhoneDTO"
             }
@@ -943,21 +944,6 @@
         "properties": {
           "phoneNumber": {
             "type": "string"
-          }
-        }
-      },
-      "CreatePersonCommand": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "fullName": {
-            "type": "string"
-          },
-          "addresses": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/AddressDTO"
-            }
           }
         }
       },

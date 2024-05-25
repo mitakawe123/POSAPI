@@ -51,6 +51,6 @@ public class PhoneValidator : AbstractValidator<PhoneDTO>
     {
         RuleFor(phone => phone.PhoneNumber)
             .NotEmpty().WithMessage("Phone number is required.")
-            .Matches(@"^\d{10}$").WithMessage("Phone number must be 10 digits.");
+            .Matches(@"^\d{6}$").WithMessage("Phone number must be 6 digits.");
     }
 }

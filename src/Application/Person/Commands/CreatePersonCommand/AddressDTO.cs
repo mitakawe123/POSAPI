@@ -16,7 +16,7 @@ public record AddressDTO
 
     public AddressType Type { get; set; }
 
-    public ICollection<PhoneDTO> Phones { get; set; } = [];
+    public ICollection<PhoneDTO>? Phones { get; set; } = [];
 
     private class Mapping : Profile
     {

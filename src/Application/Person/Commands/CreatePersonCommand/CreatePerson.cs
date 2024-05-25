@@ -28,10 +28,10 @@ public class CreatePersonCommandHandler(IApplicationDbContext context) :
                 ZipCode = a.ZipCode,
                 Country = a.Country,
                 Type = a.Type,
-                Phones = a.Phones.Select(p => new Phone
+                Phones = a.Phones?.Select(p => new Phone
                 {
                     PhoneNumber = p.PhoneNumber
-                }).ToList()
+                }).ToList() ?? []
             }).ToList()
         };
         

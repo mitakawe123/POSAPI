@@ -21,8 +21,8 @@ public record PersonSqlResult
 
     public AddressType Type { get; set; }
 
-    public Guid PhoneId { get; set; }
+    public Guid? PhoneId { get; set; }
 
-    public string PhoneNumber { get; set; } = string.Empty;
+    public string? PhoneNumber { get; set; }
 }
 

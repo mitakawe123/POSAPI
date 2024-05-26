@@ -37,7 +37,7 @@ public class GetUsersQueryHandler(IApplicationDbContext context) :
                   ph."PhoneNumber"
               from public."People" as pe
               join public."Addresses" as a on pe."Id" = a."UserId"
-              join public."Phones" as ph on ph."AddressId" = a."Id"
+              left join public."Phones" as ph on ph."AddressId" = a."Id"
               where pe."Id" = {request.Id}
               """;
 
@@ -66,13 +66,12 @@ public class GetUsersQueryHandler(IApplicationDbContext context) :
                             ZipCode = a.ZipCode,
                             Country = a.Country,
                             Type = a.Type,
-                            Phones = ag
+                            Phones = a.PhoneId is not null ? ag
                                 .Select(p => new Phone
                                 {
-                                    Id = p.PhoneId,
-                                    PhoneNumber = p.PhoneNumber
-                                })
-                                .ToList()
+                                    Id = p.PhoneId ?? Guid.Empty,
+                                    PhoneNumber = p.PhoneNumber ?? string.Empty
+                                }).ToList() : []
                         };
                     }).ToList()
                 });

@@ -1,9 +1,6 @@
-﻿using System.Linq.Expressions;
-using System.Reflection;
+﻿using System.Reflection;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
-using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using POSAPI.Application.Common.Interfaces;
 using POSAPI.Application.People.Queries;
 using POSAPI.Domain.Entities;
@@ -34,12 +31,14 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         builder.Entity<Person>()
             .HasMany(p => p.Addresses)
             .WithOne(a => a.Person)
-            .HasForeignKey(a => a.UserId);
+            .HasForeignKey(a => a.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.Entity<Address>()
             .HasMany(a => a.Phones)
             .WithOne(t => t.Address)
-            .HasForeignKey(t => t.AddressId);
+            .HasForeignKey(t => t.AddressId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 
     public async Task<List<TEntity>> FromSqlRaw<TEntity>(string sql, params object[] parameters) where TEntity : class

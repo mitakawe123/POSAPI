@@ -3,24 +3,20 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using POSAPI.Infrastructure.Data;
 using Respawn;
-using Respawn.Graph;
-using Testcontainers.MsSql;
+using Testcontainers.PostgreSql;
 
 namespace POSAPI.Application.FunctionalTests;
 
 public class TestcontainersTestDatabase : ITestDatabase
 {
-    private readonly MsSqlContainer _container;
+    
+    private readonly PostgreSqlContainer _container = new PostgreSqlBuilder()
+        .WithAutoRemove(true)
+        .Build();
+
     private DbConnection _connection = null!;
     private string _connectionString = null!;
     private Respawner _respawner = null!;
-
-    public TestcontainersTestDatabase()
-    {
-        _container = new MsSqlBuilder()
-            .WithAutoRemove(true)
-            .Build();
-    }
 
     public async Task InitialiseAsync()
     {
@@ -36,11 +32,11 @@ public class TestcontainersTestDatabase : ITestDatabase
 
         var context = new ApplicationDbContext(options);
 
-        context.Database.Migrate();
+        await context.Database.MigrateAsync();
 
         _respawner = await Respawner.CreateAsync(_connectionString, new RespawnerOptions
         {
-            TablesToIgnore = new Table[] { "__EFMigrationsHistory" }
+            TablesToIgnore = ["__EFMigrationsHistory"]
         });
     }
 

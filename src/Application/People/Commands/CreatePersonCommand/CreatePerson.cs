@@ -16,7 +16,7 @@ public class CreatePersonCommandHandler(IApplicationDbContext context) :
 {
     public async Task<Guid> Handle(CreatePersonCommand request, CancellationToken cancellationToken)
     {
-        var person = new Person
+        Person person = new()
         {
             Id = Guid.NewGuid(),
             FullName = request.FullName,

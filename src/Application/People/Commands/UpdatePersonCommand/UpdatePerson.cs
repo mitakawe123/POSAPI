@@ -8,7 +8,7 @@ public record UpdatePersonCommand : IRequest
 
     public string FullName { get; set; } = string.Empty;
 
-    public ICollection<Address>? Addresses { get; set; } = [];
+    public ICollection<Address> Addresses { get; set; } = [];
 }
 
 public class UpdatePersonCommandHandler(IApplicationDbContext context) :
@@ -16,18 +16,15 @@ public class UpdatePersonCommandHandler(IApplicationDbContext context) :
 {
     public async Task Handle(UpdatePersonCommand request, CancellationToken cancellationToken)
     {
-        // use OnDelete on the OnModelCreating and use ExecuteDelete
         var entity = await context.People
             .Include(p => p.Addresses)
             .ThenInclude(a => a.Phones)
             .FirstOrDefaultAsync(p => p.Id == request.Id, cancellationToken);
-        
-        Guard.Against.NotFound(request.Id, entity);
-        
-        entity.FullName = request.FullName;
 
-        if (request.Addresses is not null && request.Addresses.Count is not 0)
-            entity.Addresses = request.Addresses;
+        Guard.Against.NotFound(request.Id, entity);
+
+        entity.FullName = request.FullName;
+        entity.Addresses = request.Addresses;
 
         await context.SaveChangesAsync(cancellationToken);
     }

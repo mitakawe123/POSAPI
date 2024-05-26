@@ -11,7 +11,7 @@ namespace POSAPI.Application.FunctionalTests;
 [SetUpFixture]
 public class Testing
 {
-    private static ITestDatabase _database;
+    private static ITestDatabase _database = null!;
     private static CustomWebApplicationFactory _factory = null!;
     private static IServiceScopeFactory _scopeFactory = null!;
     private static string? _userId;

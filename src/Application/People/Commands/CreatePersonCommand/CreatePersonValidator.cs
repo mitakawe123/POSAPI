@@ -8,7 +8,8 @@ public class CreatePersonValidator : AbstractValidator<CreatePersonCommand>
             .NotEmpty().WithMessage("Full name is required.");
 
         RuleFor(x => x.Addresses)
-            .SetValidator(new AddressValidator());
+            .SetValidator(new AddressValidator())
+            .NotEmpty().WithMessage("Address is required.");
     }
 }
 
@@ -16,7 +17,8 @@ public class AddressValidator : AbstractValidator<ICollection<AddressDTO>>
 {
     public AddressValidator()
     {
-        RuleForEach(address => address).SetValidator(new SingleAddressValidator());
+        RuleForEach(address => address)
+            .SetValidator(new SingleAddressValidator());
     }
 }
 

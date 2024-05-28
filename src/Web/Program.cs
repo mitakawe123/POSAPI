@@ -1,6 +1,7 @@
 using POSAPI.Application;
 using POSAPI.Infrastructure;
 using POSAPI.Infrastructure.Data;
+using POSAPI.Web;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -57,4 +58,7 @@ app.MapEndpoints();
 
 app.Run();
 
-public partial class Program { }
+namespace POSAPI.Web
+{
+    public partial class Program { }
+}

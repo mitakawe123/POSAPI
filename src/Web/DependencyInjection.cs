@@ -6,7 +6,7 @@ using POSAPI.Application.Common.Interfaces;
 using POSAPI.Infrastructure.Data;
 using POSAPI.Web.Services;
 
-namespace Microsoft.Extensions.DependencyInjection;
+namespace POSAPI.Web;
 
 public static class DependencyInjection
 {

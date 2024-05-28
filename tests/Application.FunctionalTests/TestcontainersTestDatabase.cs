@@ -1,6 +1,6 @@
 ﻿using System.Data.Common;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Npgsql;
 using POSAPI.Infrastructure.Data;
 using Respawn;
 using Testcontainers.PostgreSql;
@@ -9,9 +9,13 @@ namespace POSAPI.Application.FunctionalTests;
 
 public class TestcontainersTestDatabase : ITestDatabase
 {
-    
+
     private readonly PostgreSqlContainer _container = new PostgreSqlBuilder()
-        .WithAutoRemove(true)
+        .WithDatabase("POSDB")
+        .WithUsername("pos_user")
+        .WithPassword("pos_password")
+        .WithCleanUp(true)
+        .WithPortBinding(5432, true)
         .Build();
 
     private DbConnection _connection = null!;
@@ -24,7 +28,7 @@ public class TestcontainersTestDatabase : ITestDatabase
 
         _connectionString = _container.GetConnectionString();
 
-        _connection = new SqlConnection(_connectionString);
+        _connection = new NpgsqlConnection(_connectionString);
 
         var options = new DbContextOptionsBuilder<ApplicationDbContext>()
             .UseNpgsql(_connectionString)
@@ -33,7 +37,7 @@ public class TestcontainersTestDatabase : ITestDatabase
         var context = new ApplicationDbContext(options);
 
         await context.Database.MigrateAsync();
-
+        //todo: here the respawner is giving error fix it 
         _respawner = await Respawner.CreateAsync(_connectionString, new RespawnerOptions
         {
             TablesToIgnore = ["__EFMigrationsHistory"]

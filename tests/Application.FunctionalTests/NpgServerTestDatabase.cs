@@ -1,7 +1,7 @@
 ﻿using System.Data.Common;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Npgsql;
 using POSAPI.Infrastructure.Data;
 using Respawn;
 
@@ -10,9 +10,9 @@ namespace POSAPI.Application.FunctionalTests;
 public class NpgServerTestDatabase : ITestDatabase
 {
     private readonly string _connectionString = null!;
-    private SqlConnection _connection = null!;
+    private NpgsqlConnection _connection = null!;
     private Respawner _respawner = null!;
-
+    
     public NpgServerTestDatabase()
     {
         var configuration = new ConfigurationBuilder()
@@ -29,7 +29,7 @@ public class NpgServerTestDatabase : ITestDatabase
 
     public async Task InitialiseAsync()
     {
-        _connection = new SqlConnection(_connectionString);
+        _connection = new NpgsqlConnection(_connectionString);
 
         var options = new DbContextOptionsBuilder<ApplicationDbContext>()
             .UseNpgsql(_connectionString)

@@ -19,11 +19,19 @@ public class Testing
     [OneTimeSetUp]
     public async Task RunBeforeAnyTests()
     {
-        _database = await TestDatabaseFactory.CreateAsync();
+        try
+        {
+            _database = await TestDatabaseFactory.CreateAsync();
 
-        _factory = new CustomWebApplicationFactory(_database.GetConnection());
+            _factory = new CustomWebApplicationFactory(_database.GetConnection());
 
-        _scopeFactory = _factory.Services.GetRequiredService<IServiceScopeFactory>();
+            _scopeFactory = _factory.Services.GetRequiredService<IServiceScopeFactory>();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error in RunBeforeAnyTests: {ex.Message}");
+            throw;
+        }
     }
 
     public static async Task<TResponse> SendAsync<TResponse>(IRequest<TResponse> request)

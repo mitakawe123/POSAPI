@@ -11,7 +11,14 @@ public class DeletePersonCommandHandler(IApplicationDbContext context) :
 {
     public async Task Handle(DeletePersonCommand request, CancellationToken cancellationToken)
     {
-        await context.People.Where(x => x.Id == request.Id).ExecuteDeleteAsync(cancellationToken);
+        int countOfPeopleDeleted = await context.People
+            .Where(x => x.Id == request.Id)
+            .ExecuteDeleteAsync(cancellationToken);
+
+        if (countOfPeopleDeleted is 0)
+        {
+            throw new NotFoundException($"Person with Id {request.Id} not found.", request.Id.ToString());
+        }
 
         Person person = new() { Id = request.Id };
         person.AddDomainEvent(new PersonDeletedEvent(person));

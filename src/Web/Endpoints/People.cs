@@ -11,12 +11,12 @@ public class People : EndpointGroupBase
     {
         app.MapGroup(this)
             .RequireAuthorization()
-            .MapGet(GetPerson,"{id}")
+            .MapGet(GetPerson, "{id:guid}")
             .MapPost(CreatePerson)
-            .MapDelete(DeletePerson, "{id}")
-            .MapPatch("{id}", UpdatePerson);
+            .MapDelete(DeletePerson, "{id:guid}")
+            .MapPut("{id:guid}", UpdatePerson);
     }
-    
+
     private Task<string> GetPerson(ISender sender, Guid id)
     {
         return sender.Send(new GetPersonQuery(id));
@@ -29,9 +29,9 @@ public class People : EndpointGroupBase
 
     private async Task<IResult> UpdatePerson(ISender sender, Guid id, UpdatePersonCommand command)
     {
-        if (id != command.Id) 
+        if (id != command.Id)
             return Results.BadRequest();
-        
+
         await sender.Send(command);
         return Results.NoContent();
     }
